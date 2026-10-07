@@ -1,6 +1,6 @@
 # Jessica environment
 
-This folder records the tested DirectFisheye-GS environment created on the CREMI host `jessica`.
+This folder records the tested DirectFisheye-GS environment created on the CREMI host `jessica`. It is stored in the shared `/net/travail/sacosta` workspace and is intended for any CUDA-capable CREMI host whose NVIDIA driver supports CUDA 12.6.
 
 It is a recipe and audit record, not a copy of the installed environment. The installed files remain in `/net/travail/sacosta/trdp-fisheyeGS/env/dfgs` on Jessica.
 
@@ -17,7 +17,7 @@ It is a recipe and audit record, not a copy of the installed environment. The in
 
 ## Activate an existing environment
 
-From an SSH session on Jessica:
+From an SSH session on a CUDA-capable CREMI machine:
 
 ```bash
 source /net/travail/sacosta/trdp-fisheyeGS/metadata/setup/jessica_activate.sh
@@ -30,3 +30,12 @@ python -c 'import torch; print(torch.__version__, torch.cuda.get_device_name(0))
 ```
 
 Do not re-run the installer on every login. Activation simply selects the already-installed environment.
+
+Before a training run on a different host, check that the GPU is present and PyTorch can use it:
+
+```bash
+nvidia-smi
+python -c 'import torch; print(torch.cuda.get_device_name(0), torch.cuda.get_device_capability(0))'
+```
+
+CPU-only hosts cannot train DirectFisheye-GS. If a host reports a driver error, use a newer CUDA-capable workstation or contact CREMI rather than modifying the shared environment.
