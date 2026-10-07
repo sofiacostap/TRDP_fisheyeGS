@@ -21,21 +21,14 @@ From an SSH session on a CUDA-capable CREMI machine:
 
 ```bash
 source /net/travail/sacosta/trdp-fisheyeGS/metadata/setup/jessica_activate.sh
-```
-
-Then confirm it is ready:
-
-```bash
-python -c 'import torch; print(torch.__version__, torch.cuda.get_device_name(0))'
-```
-
-Do not re-run the installer on every login. Activation simply selects the already-installed environment.
-
-Before a training run on a different host, check that the GPU is present and PyTorch can use it:
-
-```bash
 nvidia-smi
 python -c 'import torch; print(torch.cuda.get_device_name(0), torch.cuda.get_device_capability(0))'
 ```
 
-CPU-only hosts cannot train DirectFisheye-GS. If a host reports a driver error, use a newer CUDA-capable workstation or contact CREMI rather than modifying the shared environment.
+The `.sh` file activates the environment that is already installed in the shared CREMI work space; it does not reinstall packages.
+
+## Limitations
+
+- The host must have an NVIDIA GPU. CPU-only CREMI machines cannot train DirectFisheye-GS.
+- The NVIDIA driver must support CUDA 12.6. If PyTorch reports a driver/CUDA error, use another GPU host or ask CREMI; do not modify the shared environment.
+- The environment and custom extensions are shared through `/net/travail/sacosta` and support common NVIDIA compute capabilities 7.5, 8.0, 8.6, and 8.9.

@@ -44,6 +44,28 @@ Before downloading data or training, confirm with CREMI:
 
 After approval, record the chosen absolute path in `docs/storage-and-hosts.md` (not yet created because the policy is unresolved).
 
+## CREMI shared environment
+
+The tested environment is stored in your shared, automatically backed-up CREMI work space, so it is not limited to Jessica:
+
+```text
+/net/travail/sacosta/trdp-fisheyeGS/
+├── env/dfgs/       # Python 3.12.11, CUDA 12.6, PyTorch 2.8.0+cu126
+├── repo/           # DirectFisheye-GS source, commit recorded in metadata
+└── metadata/setup/ # activation helper, environment export, package list, compatibility patch
+```
+
+It works on any CREMI host with an NVIDIA GPU and a driver compatible with CUDA 12.6. On login, use:
+
+```bash
+source /net/travail/sacosta/trdp-fisheyeGS/metadata/setup/jessica_activate.sh
+nvidia-smi
+python -c 'import torch; print(torch.cuda.get_device_name(0), torch.cuda.get_device_capability(0))'
+```
+
+The two custom CUDA extensions are compiled for NVIDIA compute capabilities 7.5, 8.0, 8.6, and 8.9, with forward-compatible PTX. CPU-only machines cannot train the project.
+
+
 ## Baseline checklist
 
 - [ ] Freeze the DirectFisheye-GS source commit.
