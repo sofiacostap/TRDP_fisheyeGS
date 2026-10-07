@@ -1,0 +1,54 @@
+# Dataset and generated conversions
+data/
+**/FishEyeNeRF/
+**/FisheyeNeRF/
+converted/
+
+# Training artifacts
+runs/
+outputs/
+checkpoints/
+models/
+renders/
+viewer/
+*.ply
+*.pt
+*.pth
+*.ckpt
+*.tar
+*.tar.gz
+*.zip
+
+# Local environments and compiled extensions
+.venv/
+venv/
+.env/
+__pycache__/
+*.py[cod]
+build/
+dist/
+*.egg-info/
+
+# Logs and metrics generated at scale
+*.log
+logs/*
+!logs/.gitkeep
+
+# Host-specific and secret material
+*.key
+*.pem
+id_*
+*.env.local
+.DS_Store
+Thumbs.db
+
+# Protocol scratch and downloaded source artifacts
+*.bin
+*.jpg
+*.jpeg
+*.png
+*.mp4
+/tmp/
+/qa_protocol/
+/generate_protocol.py
+/DirectFisheyeGS_Experimental_Protocol.docx
