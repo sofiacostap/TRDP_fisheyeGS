@@ -17,6 +17,8 @@ Each completed output contains:
 - `test/ours_30000/renders/` and `test/ours_30000/gt/` for held-out render/ground-truth pairs;
 - `chkpnt30000.pth` plus intermediate checkpoints at 7k, 14k, 21k, and 28k.
 
+The immutable full-view train/test filename lists and the SHA256 identities of the corresponding COLMAP reconstructions are versioned in `manifests/chairs_fullview_split_v1.json` and `manifests/globe_fullview_split_v1.json`.
+
 ## Interruption and resumption
 
 Globe was interrupted by host power cycles. It resumed from the self-created 7k checkpoint and completed with unchanged experiment parameters. PyTorch 2.8 requires an explicit trusted-checkpoint compatibility setting when loading this project's checkpoint format: `torch.load(checkpoint, weights_only=False)`. This is a serialization compatibility change only; it does not alter the data, training configuration, or model method.
