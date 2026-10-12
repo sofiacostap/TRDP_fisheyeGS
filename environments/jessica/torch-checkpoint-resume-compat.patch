@@ -1,0 +1,5 @@
+--- a/training_core.py
++++ b/training_core.py
+@@
+-        (model_params, first_iter) = torch.load(checkpoint)
++        (model_params, first_iter) = torch.load(checkpoint, weights_only=False)

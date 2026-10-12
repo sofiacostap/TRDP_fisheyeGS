@@ -4,7 +4,7 @@ Reproducible experimental workspace for the DirectFisheye-GS sparse-view study o
 
 ## Current milestone
 
-The immediate objective is to reproduce the full-view DirectFisheye-GS baseline for Globe and Chairs with native fisheye images and cross-view optimization (CVO). Sparse-view experiments begin only after the baseline, camera conversion, permanent test split, and common image resolution are frozen.
+The strict full-view DirectFisheye-GS baselines for Globe and Chairs are complete. Both use native fisheye images, CVO with the `recip` preset, 30,000 iterations, batch size 2, and the repository's default image handling. Sparse-view experiments begin only after the baseline, camera conversion, permanent test split, and common image resolution are frozen.
 
 The experiment protocol is retained in `docs/DirectFisheyeGS_Experimental_Protocol.docx`.
 
@@ -34,15 +34,13 @@ The following large or machine-local material is deliberately not committed: raw
 
 ## CREMI storage plan
 
-Jessica currently reports about 1.4 TB free on its local NVMe filesystem and about 6.6 GB free in the user account. Large materials must therefore live outside the account home directory, in a CREMI-approved persistent location.
+The canonical project storage is the shared, automatically backed-up CREMI workspace:
 
-Before downloading data or training, confirm with CREMI:
+```text
+/net/travail/sacosta/trdp-fisheyeGS/
+```
 
-1. the approved directory for project data and its persistence across reboot/cleanup;
-2. whether it is permitted to store environments, raw data, checkpoints, and renders there;
-3. GPU-use, unattended-run, and `tmux` policies.
-
-After approval, record the chosen absolute path in `docs/storage-and-hosts.md` (not yet created because the policy is unresolved).
+Keep source data, converted reconstructions, environments, checkpoints, final renders, and metrics there. Use a host's `/local/sacosta/trdp-fisheyeGS/` only as temporary fast workspace for active preprocessing or training input. Local workspaces can disappear after reboot or cleanup.
 
 ## CREMI shared environment
 
@@ -68,15 +66,14 @@ The two custom CUDA extensions are compiled for NVIDIA compute capabilities 7.5,
 
 ## Baseline checklist
 
-- [ ] Freeze the DirectFisheye-GS source commit.
-- [ ] Build and export the Python/CUDA environment on Jessica.
-- [ ] Confirm a CUDA tensor test and repository import.
-- [ ] Run 100 iterations at batch sizes 1 and 2; record peak VRAM.
-- [ ] Freeze one common image resolution.
-- [ ] Prepare and validate the full Globe and Chairs conversions.
-- [ ] Save permanent train/test manifests.
-- [ ] Train both 30,000-iteration full-view CVO baselines.
-- [ ] Render test views and save official PSNR, SSIM, and LPIPS-VGG metrics.
+- [x] Freeze the DirectFisheye-GS source commit.
+- [x] Build and export the Python/CUDA environment on Jessica.
+- [x] Confirm a CUDA tensor test and repository import.
+- [x] Prepare and validate the full Globe and Chairs conversions.
+- [x] Train both 30,000-iteration full-view CVO baselines.
+- [x] Render test views and save official PSNR, SSIM, and LPIPS-VGG metrics.
+
+See `results/baseline-summary.md` for the completed-run settings, metrics, and shared-storage locations.
 
 ## Git workflow
 
