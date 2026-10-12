@@ -47,6 +47,8 @@ Thumbs.db
 *.jpg
 *.jpeg
 *.png
+!results/figures/
+!results/figures/*.png
 *.mp4
 /tmp/
 /qa_protocol/
