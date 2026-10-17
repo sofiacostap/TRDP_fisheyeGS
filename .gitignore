@@ -54,3 +54,11 @@ Thumbs.db
 /qa_protocol/
 /generate_protocol.py
 /DirectFisheyeGS_Experimental_Protocol.docx
+
+# Local presentation work and Office temporary files
+/.build_results_deck/
+/.pptx-build/
+/.pptx-edit/
+/.scratch/
+/meeting/
+~$*.docx

@@ -15,7 +15,9 @@ Each completed output contains:
 - `per_view_test.json` and `per_view_train.json` for per-image metrics;
 - `point_cloud/iteration_30000/point_cloud.ply` for the final reconstruction;
 - `test/ours_30000/renders/` and `test/ours_30000/gt/` for held-out render/ground-truth pairs;
-- `chkpnt30000.pth` plus intermediate checkpoints at 7k, 14k, 21k, and 28k.
+- aggregate and per-view metric JSON files.
+
+To stay within CREMI storage quotas, restart checkpoints and intermediate point clouds are pruned after a run has completed and its final point cloud, renders, and metrics have been verified. This does not remove the reproducible run configuration, the frozen data split, or the final evaluation outputs.
 
 The immutable full-view train/test filename lists and the SHA256 identities of the corresponding COLMAP reconstructions are versioned in `manifests/chairs_fullview_split_v1.json` and `manifests/globe_fullview_split_v1.json`.
 

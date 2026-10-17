@@ -4,7 +4,7 @@ Reproducible experimental workspace for the DirectFisheye-GS sparse-view study o
 
 ## Current milestone
 
-The strict full-view DirectFisheye-GS baselines for Globe and Chairs are complete. Both use native fisheye images, CVO with the `recip` preset, 30,000 iterations, batch size 2, and the repository's default image handling. Sparse-view experiments begin only after the baseline, camera conversion, permanent test split, and common image resolution are frozen.
+The strict full-view baselines and the first sparse-view count study are complete for Globe and Chairs. All runs use native fisheye images, CVO with the `recip` preset, 30,000 iterations, batch size 2, and the repository's default image handling. The sparse study holds the test set, camera conversion, resolution behaviour, CVO preset, and training budget fixed while varying the number of uniformly distributed training views: 12, 24, 48, and 96.
 
 The experiment protocol is retained in `docs/DirectFisheyeGS_Experimental_Protocol.docx`.
 
@@ -74,6 +74,16 @@ The two custom CUDA extensions are compiled for NVIDIA compute capabilities 7.5,
 - [x] Render test views and save official PSNR, SSIM, and LPIPS-VGG metrics.
 
 See `results/baseline-summary.md` for the completed-run settings, metrics, and shared-storage locations.
+
+## Sparse-view count study
+
+- [x] Freeze one permanent held-out test set for each scene.
+- [x] Freeze exact, uniformly distributed 12/24/48/96-view training manifests.
+- [x] Train and evaluate all eight scene-by-view-count conditions.
+- [x] Export aggregate metrics and matched-view qualitative/error-map comparisons.
+- [ ] Run the planned fixed-24-view angular-coverage comparison (360° uniform versus 180° and 90° contiguous coverage).
+
+See `results/sparse-view-count-summary.md` for the completed results and `docs/sparse-view-meeting-guide.md` for discussion notes. The exact selected images are versioned in `manifests/sparse/`.
 
 ## Git workflow
 
