@@ -77,10 +77,11 @@ On a CREMI GPU host:
 
 ```bash
 source /net/travail/sacosta/trdp-fisheyeGS/metadata/setup/jessica_activate.sh
-bash /net/travail/sacosta/trdp-fisheyeGS/scripts/run_selection_study.sh chairs xy_angle 24 0
+bash /net/travail/sacosta/trdp-fisheyeGS/scripts/run_selection_study.sh chairs xy_angle 24 0 0
 ```
 
-The launcher refuses to overwrite an existing output directory.  Copy or
+The final optional argument is the training seed and defaults to `0`. The
+launcher refuses to overwrite an existing output directory.  Copy or
 prepare a scene input directory at
 `/net/travail/sacosta/trdp-fisheyeGS/selection_inputs/<scene>` only after the
 manifest is frozen.  It must expose the original images and the unchanged
