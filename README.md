@@ -51,6 +51,12 @@ The canonical project storage is the shared, automatically backed-up CREMI works
 
 Keep source data, converted reconstructions, environments, checkpoints, final renders, and metrics there. Use a host's `/local/sacosta/trdp-fisheyeGS/` only as temporary fast workspace for active preprocessing or training input. Local workspaces can disappear after reboot or cleanup.
 
+The shared CREMI workspace is a data/run directory, not a Git checkout. Keep a
+small clone of this repository separately, for example at
+`/net/cremi/sacosta/TRDP_fisheyeGS-control/`, and run its scripts against the
+shared workspace above. This keeps source control portable without copying
+datasets or results into Git.
+
 ## CREMI shared environment
 
 The tested environment is stored in your shared, automatically backed-up CREMI work space, so it is not limited to Jessica:

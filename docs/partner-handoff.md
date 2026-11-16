@@ -7,6 +7,14 @@ question is: **with a fixed number of native-fisheye training images, can a
 static scene-aware selector improve held-out DirectFisheye-GS quality over
 pose-only image selection?**
 
+On CREMI, keep the small Git control checkout separate from the large shared
+data-and-results workspace:
+
+```text
+/net/cremi/sacosta/TRDP_fisheyeGS-control/  # Git checkout: scripts, manifests, docs
+/net/travail/sacosta/trdp-fisheyeGS/        # data, environment, logs, results
+```
+
 Do not rerun the completed full-view or preliminary uniform-count study.  They
 are retained as pilot evidence.  The following is a new, coordinated study.
 
@@ -77,7 +85,7 @@ On a CREMI GPU host:
 
 ```bash
 source /net/travail/sacosta/trdp-fisheyeGS/metadata/setup/jessica_activate.sh
-bash /net/travail/sacosta/trdp-fisheyeGS/scripts/run_selection_study.sh chairs xy_angle 24 0 0
+bash /net/cremi/sacosta/TRDP_fisheyeGS-control/scripts/run_selection_study.sh chairs xy_angle 24 0 0
 ```
 
 The final optional argument is the training seed and defaults to `0`. The
