@@ -1,12 +1,21 @@
 # TRDP FisheyeGS
 
-Reproducible experimental workspace for the DirectFisheye-GS sparse-view study on the FisheyeNeRF **Globe** and **Chairs** scenes.
+Reproducible experimental workspace for the DirectFisheye-GS sparse-view study on the FisheyeNeRF **Flowers**, **Globe**, and **Chairs** scenes.
 
 ## Current milestone
 
 The strict full-view baselines and the first sparse-view count study are complete for Globe and Chairs. All runs use native fisheye images, CVO with the `recip` preset, 30,000 iterations, batch size 2, and the repository's default image handling. The sparse study holds the test set, camera conversion, resolution behaviour, CVO preset, and training budget fixed while varying the number of uniformly distributed training views: 12, 24, 48, and 96.
 
 The experiment protocol is retained in `docs/DirectFisheyeGS_Experimental_Protocol.docx`.
+
+## Current shared-study handoff
+
+The next phase is a coordinated selection study: at a fixed image budget, we
+compare an XY-angle pose baseline, 3D angular FPS, and a static
+visibility-and-direction selector.  The full protocol and partner tasks are
+in [`docs/partner-handoff.md`](docs/partner-handoff.md).  The first budget is
+24 images; 12 images is the follow-up.  Do not use the earlier uniform PCA
+manifests as the XY-angle baseline for this study.
 
 ## Project principles
 
