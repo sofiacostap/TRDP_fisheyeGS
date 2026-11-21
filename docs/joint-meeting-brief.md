@@ -23,8 +23,8 @@ The Flowers work evaluates static image selection before DirectFisheye-GS traini
 
 - Scene: Flowers from FisheyeNeRF, 149 images total.
 - Reference protocol: 130 training candidates and 19 fixed test images.
-- Budgets: 10 and 20 selected training images.
-- Pose-only baselines: XY angle spacing and 3D angular farthest-point sampling (FPS).
+- Budgets: 12, 24, 48 and 96 selected training images.
+- Pose-only baselines: PCA-angle spacing and 3D angular farthest-point sampling (FPS).
 - Proposed static selector: use full COLMAP point observations and point-to-camera viewing directions to choose images that contribute unseen scene points or useful additional views of known points.
 
 This selector is separate from CVO. The static selector chooses the entire training subset once. CVO operates during training and pairs related images within the already-selected subset.
@@ -46,7 +46,7 @@ This is not a duplication of work:
 
 | Term | Meaning |
 |---|---|
-| XY angle spacing | Select camera centres approximately evenly spaced by azimuth around a reference point, using X and Y only. |
+| PCA-angle spacing | Select camera centres nearest evenly spaced angular targets after projecting them into a PCA-fitted plane around their mean. |
 | 3D angular FPS | Greedily select camera-centre directions that are maximally separated in 3D. |
 | Static visibility-and-direction selector | Select the whole subset before training using COLMAP scene-point observations and viewing directions. This was called `coverage selection` in the Flowers report. |
 | Camera-path coverage | The extent of selected camera positions around the path, such as 360, 180, or 90 degrees. This is different from the static selector. |

@@ -15,6 +15,11 @@ data-and-results workspace:
 /net/travail/sacosta/trdp-fisheyeGS/        # data, environment, logs, results
 ```
 
+The coordinated launch and validation scripts are **Linux-only**: they use
+Linux process locking and are intended to run on CREMI GPU hosts. This does not
+limit the study, because all training is performed on CREMI; Windows is only a
+local editing and SSH client.
+
 Do not rerun the completed full-view or preliminary uniform-count study.  They
 are retained as pilot evidence.  The following is a new, coordinated study.
 
@@ -23,7 +28,7 @@ are retained as pilot evidence.  The following is a new, coordinated study.
 1. [`selection-study-plan.md`](selection-study-plan.md): research question and
    interpretation boundaries.
 2. This file: exact common protocol and handoff tasks.
-3. `scripts/create_xy_angle_manifest.py`: executable canonical XY baseline.
+3. `scripts/create_uniform_pose_manifest.py`: executable canonical PCA-angle baseline.
 4. `scripts/run_selection_study.sh`: the only shared training launcher.
 
 ## Frozen common protocol
@@ -42,25 +47,26 @@ are retained as pilot evidence.  The following is a new, coordinated study.
 | Evaluation | Same frozen test list; global and per-test-view PSNR, SSIM, LPIPS |
 
 Different scenes have different frozen test-image counts.  This is acceptable.
-Compare methods *within a scene*, as a change from that scene's XY baseline;
+Compare methods *within a scene*, as a change from that scene's PCA-angle baseline;
 do not compare raw PSNR between scenes.
 
 ## Methods
 
 | Selector | Status | Required deliverable |
 |---|---|---|
-| `xy_angle` | Canonical implementation supplied here. | Generate manifests for every scene at 24, then 12. |
+| `pca_angle` | Canonical implementation supplied here. | Generate manifests for every scene at 24, then 12. |
 | `angular_fps` | Partner implementation required. | Commit one deterministic generator plus manifests. |
 | `visibility_direction` | Partner implementation required. | Commit one deterministic generator plus manifests and scoring description. |
 
-The supplied `xy_angle` rule is: take the coordinate-wise median of all
-points in the frozen full-COLMAP `points3D.bin`; compute each eligible camera's
-XY azimuth around it; choose the unused camera nearest each equally spaced
-azimuth-bin centre.  Image-name order resolves exact ties.
+The supplied `pca_angle` rule is: calculate each eligible camera centre, fit
+the first two PCA axes to the camera centres around their mean, and select the
+unused image nearest each equally spaced azimuth-bin centre in that fitted
+plane. Image-name order resolves exact ties. This is the same pose-only
+baseline used by the November Flowers package and by the earlier Globe/Chairs
+uniform-view study.
 
-If the historical Flowers selector used a different search rule, preserve it
-as `flowers_legacy_xy_10_20` in documentation only.  Do not mix it with this
-coordinated study unless the same rule is applied to all three scenes.
+`scripts/create_xy_angle_manifest.py` is retained only as an archived,
+superseded fixed-world-XY prototype. Do not use it for coordinated runs.
 
 ## Partner tasks
 
@@ -85,7 +91,7 @@ On a CREMI GPU host:
 
 ```bash
 source /net/travail/sacosta/trdp-fisheyeGS/metadata/setup/jessica_activate.sh
-bash /net/cremi/sacosta/TRDP_fisheyeGS-control/scripts/run_selection_study.sh chairs xy_angle 24 0 0
+bash /net/cremi/sacosta/TRDP_fisheyeGS-control/scripts/run_selection_study.sh chairs pca_angle 24 0 0
 ```
 
 The final optional argument is the training seed and defaults to `0`. The

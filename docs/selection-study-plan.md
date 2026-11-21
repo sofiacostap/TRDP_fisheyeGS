@@ -20,7 +20,7 @@ Scenes: Flowers, Chairs, Globe.
 
 | Method | What it selects | Information used | Provenance and status |
 |---|---|---|---|
-| XY angle spacing | Cameras approximately evenly spaced by azimuth around a reference point. | Camera-centre X and Y coordinates only. | Custom baseline. Azimuth is a standard pose descriptor, but this exact selector is not taken from a DirectFisheye-GS paper. |
+| PCA-angle spacing | Cameras approximately evenly spaced in a PCA-fitted plane through the camera-centre distribution. | Camera centres only. | Custom pose-only baseline. The same deterministic selector is used for Flowers, Chairs, and Globe. |
 | 3D angular FPS | Camera directions maximally separated in 3D. | Unit vectors from a reference point to camera centres. | Adaptation of iterative farthest-point sampling from PointNet++ [Qi et al., 2017]. PointNet++ samples point clouds, not GS cameras; this is a pose-only baseline adapted by Shihab. |
 | Static visibility-and-direction selector | A complete training subset selected before GS training. | Full COLMAP sparse points, which candidate cameras observe each point, and each point-to-camera viewing direction. | Custom method implemented by Shihab. It is conceptually related to active coverage selection but is **not** the published COVER algorithm. |
 
@@ -28,7 +28,7 @@ Scenes: Flowers, Chairs, Globe.
 
 Use these names in slides and reports:
 
-- **XY angle baseline**
+- **PCA-angle baseline**
 - **3D angular-FPS baseline**
 - **static visibility-and-direction selector**
 
@@ -89,13 +89,13 @@ Change only the selected training-image manifest.
 
 ### Primary study at 24 views
 
-| Scene | XY angle | 3D angular FPS | Static visibility-and-direction |
+| Scene | PCA angle | 3D angular FPS | Static visibility-and-direction |
 |---|---:|---:|---:|
 | Flowers | Run with frozen common protocol | Run with frozen common protocol | Run with frozen common protocol |
 | Chairs | Run or audit existing equivalent baseline | New run | New run |
 | Globe | Run or audit existing equivalent baseline | New run | New run |
 
-The existing Chairs and Globe uniform-24 runs can be reused only if their manifest rule and all fixed parameters match the frozen shared protocol. Otherwise rerun them as the coordinated XY-angle baseline.
+The existing Chairs and Globe uniform-24 runs can be reused only if their manifest rule and all fixed parameters match the frozen shared protocol. Otherwise rerun them as the coordinated PCA-angle baseline.
 
 ### Follow-up at 12 views
 
@@ -128,7 +128,7 @@ The per-distance analysis separates withheld interpolation views from far extrap
 ### Sofia
 
 1. Freeze common scene directories, full-scene COLMAP identifiers, test lists, CVO settings, seeds, and results schema.
-2. Audit whether the completed Chairs and Globe 24-view manifests match the agreed XY-angle baseline. Rerun only if they do not.
+2. Audit whether the completed Chairs and Globe 24-view manifests match the agreed PCA-angle baseline. Rerun only if they do not.
 3. Implement the per-test-view distance evaluation and shared tables.
 4. Prepare the Chairs and Globe candidate pools so test images cannot leak into selection.
 
@@ -147,4 +147,4 @@ After the shared-geometry selection result is established, sparse COLMAP can bec
 
 ## 11. Next-meeting statement
 
-> We will compare three fixed, pre-training image-selection strategies under one coordinated native-fisheye DirectFisheye-GS protocol. The XY-angle and 3D angular-FPS methods test pose-only diversity. The static visibility-and-direction selector tests whether COLMAP scene observations provide a better way to spend the same image budget. We will evaluate matched held-out views overall and as a function of distance from the selected cameras, then compare the gain over baseline with the assumptions and camera models used in regular-camera view-selection papers.
+> We will compare three fixed, pre-training image-selection strategies under one coordinated native-fisheye DirectFisheye-GS protocol. The PCA-angle and 3D angular-FPS methods test pose-only diversity. The static visibility-and-direction selector tests whether COLMAP scene observations provide a better way to spend the same image budget. We will evaluate matched held-out views overall and as a function of distance from the selected cameras, then compare the gain over baseline with the assumptions and camera models used in regular-camera view-selection papers.

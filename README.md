@@ -11,11 +11,12 @@ The experiment protocol is retained in `docs/DirectFisheyeGS_Experimental_Protoc
 ## Current shared-study handoff
 
 The next phase is a coordinated selection study: at a fixed image budget, we
-compare an XY-angle pose baseline, 3D angular FPS, and a static
+compare a PCA-angle pose baseline, 3D angular FPS, and a static
 visibility-and-direction selector.  The full protocol and partner tasks are
 in [`docs/partner-handoff.md`](docs/partner-handoff.md).  The first budget is
-24 images; 12 images is the follow-up.  Do not use the earlier uniform PCA
-manifests as the XY-angle baseline for this study.
+24 images; 12 images is the follow-up.  The shared baseline is the existing
+PCA-plane uniform-camera-angle selector, not the superseded fixed-world-XY
+prototype.
 
 ## Project principles
 

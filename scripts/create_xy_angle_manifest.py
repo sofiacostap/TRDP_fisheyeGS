@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Create a deterministic XY-azimuth sparse-view manifest.
+"""Archived fixed-world-XY sparse-view manifest generator.
 
-This is the coordinated *canonical* XY-angle baseline for the selection study.
-It uses the coordinate-wise median of the frozen full-COLMAP 3D points as its
-reference point, then selects the unused eligible camera nearest each equally
-spaced XY azimuth-bin centre.  It intentionally does not depend on a GPU or
-on the DirectFisheye-GS source tree.
+This historical prototype is retained for traceability only. The coordinated
+study uses scripts/create_uniform_pose_manifest.py, whose PCA-plane selector
+matches the Flowers, Chairs, and Globe pose-only baseline. Do not use this
+script for new coordinated runs.
 """
 
 from __future__ import annotations
@@ -110,12 +109,12 @@ def main() -> None:
     payload = {
         "manifest_version": 1,
         "scene": base["scene"],
-        "purpose": "coordinated sparse-view selection study: canonical XY-angle baseline",
+        "purpose": "archived fixed-world-XY prototype; not for coordinated study runs",
         "base_manifest": str(args.baseline_manifest),
         "base_manifest_sha256": sha256(args.baseline_manifest),
         "reconstruction": base["reconstruction"],
         "selection": {
-            "strategy": "xy_azimuth_bin_v1",
+            "strategy": "archived_xy_azimuth_bin_v1",
             "training_view_count": args.count,
             "eligible_training_view_count": len(eligible),
             "reference_point_rule": "coordinate-wise median of every XYZ point in frozen full-COLMAP points3D.bin",

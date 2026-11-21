@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Run one frozen-manifest DirectFisheye-GS sparse-view experiment.
 # Usage: bash run_selection_study.sh <scene> <selector> <12|24> <gpu-id> [seed]
-# Example: bash run_selection_study.sh chairs xy_angle 24 0 0
+# Example: bash run_selection_study.sh chairs pca_angle 24 0 0
 set -euo pipefail
 
 scene="$1"
@@ -17,7 +17,7 @@ output="${root}/results/selection-study/${run_id}"
 log="${root}/logs/selection-study/${run_id}.log"
 
 case "$scene" in flowers|chairs|globe) ;; *) echo "Unknown scene: $scene" >&2; exit 2 ;; esac
-case "$selector" in xy_angle|angular_fps|visibility_direction) ;; *) echo "Unknown selector: $selector" >&2; exit 2 ;; esac
+case "$selector" in pca_angle|angular_fps|visibility_direction) ;; *) echo "Unknown selector: $selector" >&2; exit 2 ;; esac
 case "$budget" in 12|24) ;; *) echo "Budget must be 12 or 24" >&2; exit 2 ;; esac
 case "$seed" in *[!0-9]*|'') echo "Seed must be a non-negative integer" >&2; exit 2 ;; esac
 
