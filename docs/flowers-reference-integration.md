@@ -24,15 +24,16 @@ projected into the first two PCA axes around their mean, then the nearest
 unused image is selected for each equally spaced angular target. It is the
 common pose-only baseline for Flowers, Chairs, and Globe.
 
-## Verified Flowers preflight
+## Verified Flowers preparation
 
-The prepared scene passes the reference package's CPU-only preflight:
+The prepared scene passes the reference package's CPU input checks and GPU
+loader preflight:
 
 - 149 original Flowers images;
 - 130 frozen training candidates and 19 frozen held-out tests;
 - exact frozen cameras, image poses, sparse points, point-cloud cache, and
   camera-association file;
-- all 12 PCA-angle, 3D-angular-FPS, and visibility-direction manifests;
+- all 12 PCA-angle, 3D-angular-FPS, and static coverage manifests;
 - test images excluded from both training and scene-aware selection tracks.
 
 No GPU optimisation was started by this validation.

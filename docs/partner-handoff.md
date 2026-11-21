@@ -54,9 +54,9 @@ do not compare raw PSNR between scenes.
 
 | Selector | Status | Required deliverable |
 |---|---|---|
-| `pca_angle` | Canonical implementation supplied here. | Generate manifests for every scene at 24, then 12. |
-| `angular_fps` | Partner implementation required. | Commit one deterministic generator plus manifests. |
-| `visibility_direction` | Partner implementation required. | Commit one deterministic generator plus manifests and scoring description. |
+| `pca_angle` | Canonical pose-only reference implementation. | Frozen manifests generated for Flowers, Chairs, and Globe. |
+| `angular_fps` | Deterministic 3D angular farthest-point sampler. | Frozen manifests generated for Flowers, Chairs, and Globe. |
+| `coverage` | Static COLMAP visibility-and-direction selector. | Frozen manifests generated for Flowers, Chairs, and Globe. |
 
 The supplied `pca_angle` rule is: calculate each eligible camera centre, fit
 the first two PCA axes to the camera centres around their mean, and select the
@@ -68,22 +68,20 @@ uniform-view study.
 `scripts/create_xy_angle_manifest.py` is retained only as an archived,
 superseded fixed-world-XY prototype. Do not use it for coordinated runs.
 
-## Partner tasks
+## Study state and next GPU step
 
-1. Clone this repository and read the four files above.
-2. Commit the exact deterministic `angular_fps` generator.  State the
-   reference-point rule, initial camera(s), distance formula, and ties.
-3. Commit the exact deterministic `visibility_direction` generator.  State
-   point eligibility, observation filtering, score equation, weights, initial
-   selection, and ties.
-4. Do **not** launch GPU jobs until each manifest has been reviewed.
-5. Generate 24-view manifests for Flowers, Chairs, Globe using the frozen base
-   test lists.  Commit manifests before training.
-6. Run the shared launcher once per selector/scene at 24 views.  Keep the
+All three selectors are now defined in the pinned Flowers reference package.
+Flowers already has its completed reference table; it should not be rerun.
+The shared Chairs and Globe manifests have passed the no-training audit:
+their frozen geometry hashes match the original baseline, every test image is
+excluded, and all budget prefixes are nested.
+
+1. Do **not** regenerate a manifest or rerun COLMAP.
+2. Run the shared launcher for each selector/scene at 24 views. Keep the
    output and log paths that the launcher creates on CREMI; commit only small
    metrics summaries, manifests, and code.
-7. Repeat all selectors at 12 views after validating the 24-view results.
-8. Repeat only the strongest resulting comparison with `--seed 1`.
+3. Repeat all selectors at 12 views after validating the 24-view results.
+4. Repeat only the strongest resulting comparison with `--seed 1`.
 
 ## Shared training command
 
@@ -95,11 +93,9 @@ bash /net/cremi/sacosta/TRDP_fisheyeGS-control/scripts/run_selection_study.sh ch
 ```
 
 The final optional argument is the training seed and defaults to `0`. The
-launcher refuses to overwrite an existing output directory.  Copy or
-prepare a scene input directory at
-`/net/travail/sacosta/trdp-fisheyeGS/selection_inputs/<scene>` only after the
-manifest is frozen.  It must expose the original images and the unchanged
-full-scene COLMAP sparse model expected by `train_eval.py`.
+launcher refuses to overwrite an existing output directory. It reads the
+original images and a non-duplicating link to the unchanged full-scene COLMAP
+sparse model from `/net/travail/sacosta/trdp-fisheyeGS/data/selected/<scene>`.
 
 ## Results to record
 
